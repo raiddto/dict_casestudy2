@@ -1,7 +1,9 @@
 <?php
-	// include database connection file
+	// Connection
 	require_once'connection.php';
-	if(isset($_POST['insert']))
+
+	// Add
+	if(isset($_POST['add']))
 	{
 		// Posted Values  
 		$fname=$_POST['firstname'];
@@ -24,6 +26,7 @@
 		}
 	}
 
+	// Update
 	if(isset($_POST['update']))
 	{
 		// Get the row id
@@ -39,6 +42,16 @@
 		// Mesage after updation
 		echo "<script>alert('Record Updated successfully');</script>";
 		// Code for redirection
+		echo "<script>window.location.href='index.php'</script>"; 
+	}
+
+	// Delete
+	if(isset($_REQUEST['del']))
+	{
+		$rid=intval($_GET['del']);
+		$sql =mysqli_query($con,"call sp_delete('$rid')");
+
+		echo "<script>alert('Record deleted');</script>";
 		echo "<script>window.location.href='index.php'</script>"; 
 	}
 ?>
@@ -77,7 +90,7 @@
 	        	<div id="form">
 					<h2 class="text-center">Case Study 2</h2>
 					<div>
-						<form name="insert" method="POST">
+						<form name="add" method="POST">
 							<div class="form-group">
 								<label for="firstname">First Name</label>
 								<input type="text" class="form-control" placeholder="First Name" name="firstname">
@@ -101,7 +114,7 @@
 									<option value="CU">CU</option>
 								</select>
 							</div>
-							<button type="submit" class="btn btn-primary" name="insert" value="Submit">Submit</button>
+							<button type="submit" class="btn btn-primary" name="add" value="Submit">Submit</button>
 						</form>
 					</div>
 				</div>
@@ -135,7 +148,7 @@
 							 
 							    <td><a href="update.php?id=<?php echo htmlentities($result['id']);?>"><button class="btn btn-primary btn-xs"><i class="fa-solid fa-pen-to-square"></i></button></a></td>
 							 
-							    <td><a href="index.php?del=<?php echo htmlentities($result['id']);?>"><button class="btn btn-danger btn-xs" onClick="return confirm('Do you really want to delete');"><i class="fa-solid fa-trash-can"></i></button></a></td>
+							    <td><a href="?del=<?php echo htmlentities($result['id']);?>"><button class="btn btn-danger btn-xs" onClick="return confirm('Do you really want to delete');"><i class="fa-solid fa-trash-can"></i></button></a></td>
 						    </tr>
 						    <?php 
 								// for serial number increment
