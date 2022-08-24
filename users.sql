@@ -11,8 +11,8 @@ delete from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_insert`$$
-CREATE  PROCEDURE `sp_insert` (`fname` VARCHAR(120), `lname` VARCHAR(120), `age` int(11), `school` VARCHAR(255))  BEGIN
-insert into users(FirstName,LastName,Age,School) value(fname,lname,age,school);
+CREATE  PROCEDURE `sp_insert` (`fname` VARCHAR(120), `lname` VARCHAR(120), `gender` varchar(120),`age` int(11), `mobile` varchar(255),`temp` varchar(255),`school` VARCHAR(255), `diag` varchar(150),`encounter` varchar(150), `vax` varchar(150),`citizen` VARCHAR(255),`rid` INT(5))  BEGIN
+insert into users(FirstName,LastName,Gender,Age,Mobile,Temp,School,Diag,Encounter,Vax,Citizen) value(fname,lname,gender,age,mobile,temp,school,diag,encounter,vax,citizen);
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_read`$$
@@ -26,8 +26,8 @@ select * from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_update`$$
-CREATE  PROCEDURE `sp_update` (`fname` VARCHAR(120), `lname` VARCHAR(120), `age` int(11), `school` VARCHAR(255), `rid` INT(5))  BEGIN
-update users set FirstName=fname,LastName=lname,Age=age,School=school where id=rid;
+CREATE  PROCEDURE `sp_update` (`fname` VARCHAR(120), `lname` VARCHAR(120), `gender` varchar(120),`age` int(11), `mobile` varchar(255),`temp` varchar(255),`school` VARCHAR(255), `diag` varchar(150),`encounter` varchar(150), `vax` varchar(150),`citizen` VARCHAR(255),`rid` INT(5))  BEGIN
+update users set FirstName=fname,LastName=lname,Gender=gender,Age=age,Mobile=mobile,Temp=temp,School=school,Diag=diag,Encounter=encounter,Vax=vax,Citizen=citizen where id=rid;
 END$$
 
 DELIMITER ;
@@ -37,8 +37,15 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `FirstName` varchar(150) NOT NULL,
   `LastName` varchar(150) NOT NULL,
+  `Gender` varchar(150) NOT NULL,
   `Age` int(11) NOT NULL,
+  `Mobile` varchar(255) NOT NULL,
+  `Temp` varchar(255) NOT NULL,
   `School` varchar(255) NOT NULL,
+  `Diag` varchar(150) NOT NULL,
+  `Encounter` varchar(150) NOT NULL,
+  `Vax` varchar(150) NOT NULL,
+  `Citizen` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
