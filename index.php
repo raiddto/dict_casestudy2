@@ -105,7 +105,7 @@
 							</div>
 							<div class="form-group">
 								<label for="temp">Body Temp</label>
-								<input type="number" class="form-control" placeholder="Temperature" name="temp">
+								<input type="number" step=".01" class="form-control" placeholder="Temperature" name="temp">
 							</div>
 							<div class="form-group">
 								<label for="diag">COVID-19 Diagnosed</label><br>
