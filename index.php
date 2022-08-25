@@ -7,39 +7,21 @@
 	{
 		$name=$_POST['name'];
 		$gender=$_POST['gender'];
+		$age=$_POST['age'];
 		$mobile=$_POST['mobile'];
 		$temp=$_POST['temp'];
 		$diag=$_POST['diag'];
 		$encounter=$_POST['encounter'];
 		$vax=$_POST['vax'];
 		$nationality=$_POST['nationality'];
-		$sql=mysqli_query($con,"call sp_insert('$name','$gender','$mobile','$temp','$diag','$encounter','$vax','$nationality')");
-		if($sql)
-		{
+		$sql=mysqli_query($con,"call sp_insert('$name','$gender','$age','$mobile','$temp','$diag','$encounter','$vax','$nationality')");
+		if ($sql) {
 			echo "<script>alert('Record inserted successfully');</script>";
 			echo "<script>window.location.href='index.php'</script>"; 
-		}
-		else
-		{
+		} else {
 			echo "<script>alert('Something went wrong. Please try again');</script>";
 			echo "<script>window.location.href='index.php'</script>"; 
 		}
-	}
-
-	// Update
-	if(isset($_POST['update']))
-	{
-		$name=$_POST['name'];
-		$gender=$_POST['gender'];
-		$mobile=$_POST['mobile'];
-		$temp=$_POST['temp'];
-		$diag=$_POST['diag'];
-		$encounter=$_POST['encounter'];
-		$vax=$_POST['vax'];
-		$nationality=$_POST['nationality'];
-		$sql=mysqli_query($con,"call sp_update('$name','$gender','$mobile','$temp','$diag','$encounter','$vax','$nationality','$rid')");
-		echo "<script>alert('Record Updated successfully');</script>";
-		echo "<script>window.location.href='index.php'</script>"; 
 	}
 
 	// Delete
@@ -78,13 +60,13 @@
 	            <div class="nav flex-column flex-nowrap vh-100 overflow-auto p-2">
 	                <a href="#form" class="nav-link text-white">Form</a>
 	                <a href="#table" class="nav-link text-white">Table</a>
-	                <a href="#graph" class="nav-link text-white">Graph</a>
+	                <a href="#counter" class="nav-link text-white">Counter</a>
 	                <a href="#about" class="nav-link text-white">About</a>
 	            </div>
 	        </div>
 	        <div class="col-11 offset-1">
 	        	<div id="form">
-					<h2 class="text-center">Case Study 2</h2>
+					<h2 class="text-center mb-5">Case Study 2</h2>
 					<div>
 						<form name="add" method="POST">
 							<div class="form-group">
@@ -100,11 +82,15 @@
 								<label for="gender2">Female</label><br>
 							</div>
 							<div class="form-group">
-								<label for="mobile">Mobile No.</label>
+								<label for="age">Age</label>
+								<input type="number" class="form-control" placeholder="Age" name="age" required>
+							</div>
+							<div class="form-group">
+								<label for="mobile">Mobile Number</label>
 								<input type="text" class="form-control" placeholder="Mobile Number" name="mobile" required>
 							</div>
 							<div class="form-group">
-								<label for="temp">Body Temp</label>
+								<label for="temp">Body Temperature (Celsius)</label>
 								<input type="number" step=".01" class="form-control" placeholder="Temperature" name="temp">
 							</div>
 							<div class="form-group">
@@ -141,11 +127,13 @@
 				</div>
 				<hr>
 				<div id="table">
-					<h2 class="text-center">Table</h2>
+					<h2 class="text-center mb-5">Table</h2>
 					<table id="dTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 						<thead>
 							<tr>
+							<th scope="col"></th>
 							<th scope="col">Name</th>
+							<th scope="col">Age</th>
 							<th scope="col">Gender</th>
 							<th scope="col">Mobile No.</th>
 							<th scope="col">Body Temp</th>
@@ -157,23 +145,53 @@
 						</thead>
 						<tbody>
 							<?php 
-								$sql =mysqli_query($con, "call sp_read()");
-								$cnt=1;
-								$row=mysqli_num_rows($sql);
+								$sql = mysqli_query($con, "call sp_read()");
+								$cnt = 1;
+								$enc = 0;
+								$vax = 0;
+								$fev = 0;
+								$ad = 0;
+								$min = 0;
+								$for = 0;
+								$row = mysqli_num_rows($sql);
 
-								if($row>0){
-									while ($result=mysqli_fetch_array($sql)) {           
+								if($row > 0) {
+									while ($result = mysqli_fetch_array($sql)) {
+										if ($result['Encounter'] == "yes") {
+											$enc++;
+										}
+
+										if ($result['Vax'] == "yes") {
+											$vax++;
+										}
+
+										if ($result['Temp'] >= 37) {
+											$fev++;
+										}
+
+										if ($result['Age'] >= 18) {
+											$ad++;
+										}
+
+										if ($result['Age'] <= 17) {
+											$min++;
+										}
+
+										if (strtolower($result['Nationality']) != "filipino") {
+											$for++;
+										}
 							?>
 							<tr>
-							    <td><?php echo htmlentities($cnt);?></td>
-							    <td><?php echo ucwords(htmlentities($result['Name']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Gender']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Mobile']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Temp']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Diag']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Encounter']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Vax']));?></td>
-							    <td><?php echo ucwords(htmlentities($result['Nationality']));?></td>
+							    <td><?php echo $cnt; ?></td>
+							    <td><?php echo ucwords($result['Name']); ?></td>
+							    <td><?php echo ucwords($result['Age']); ?></td>
+							    <td><?php echo ucwords($result['Gender']); ?></td>
+							    <td><?php echo ucwords($result['Mobile']); ?></td>
+							    <td><?php echo ucwords($result['Temp']); ?></td>
+							    <td><?php echo ucwords($result['Diag']); ?></td>
+							    <td><?php echo ucwords($result['Encounter']); ?></td>
+							    <td><?php echo ucwords($result['Vax']); ?></td>
+							    <td><?php echo ucwords($result['Nationality']); ?></td>
 							 
 							    <td><a href="update.php?id=<?php echo htmlentities($result['id']);?>"><button class="btn btn-primary btn-xs"><i class="fa-solid fa-pen-to-square"></i></button></a></td>
 							 
@@ -192,13 +210,52 @@
 					</table>
 				</div>
 				<hr>
-	        	<div id="graph">
-					<h2 class="text-center">Graph</h2>
-					<img src="images/graph.png">
+	        	<div id="counter">
+					<h2 class="text-center mb-5">Counter</h2>
+					<div class="card-deck mb-5">
+						<div class="card card-1">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $enc; ?></h3>
+								<strong class="card-text">COVID-19 ENCOUNTER</strong>
+							</div>
+						</div>
+						<div class="card card-2">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $vax; ?></h3>
+								<strong class="card-text">VACCINATED</strong>
+							</div>
+						</div>
+						<div class="card card-3">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $fev; ?></h3>
+								<strong class="card-text">FEVER</strong>
+							</div>
+						</div>
+					</div>
+					<div class="card-deck">
+						<div class="card card-4">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $ad; ?></h3>
+								<strong class="card-text">ADULT</strong>
+							</div>
+						</div>
+						<div class="card card-5">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $min; ?></h3>
+								<strong class="card-text">MINOR</strong>
+							</div>
+						</div>
+						<div class="card card-6">
+							<div class="card-body text-center text-white">
+								<h3 class="card-title"><?php echo $for; ?></h3>
+								<strong class="card-text">FOREIGNER</strong>
+							</div>
+						</div>
+					</div>
 				</div>
 				<hr>
 	        	<div id="about">
-					<h2 class="text-center">About</h2>
+					<h2 class="text-center mb-5">About</h2>
 	            	<img src="images/peo.png" class="peo-logo img-fluid img-thumbnail">
 					<p class="text-center">PGMO-PEO</p>
 					<ul class="list-group">

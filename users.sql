@@ -11,8 +11,8 @@ delete from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_insert`$$
-CREATE  PROCEDURE `sp_insert` (`name` varchar(255), `gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255), `vax` varchar(255),`nationality` varchar(255))  BEGIN
-insert into users(Name,Gender,Mobile,Temp,Diag,Encounter,Vax,Nationality) value(name,gender,mobile,temp,diag,encounter,vax,nationality);
+CREATE  PROCEDURE `sp_insert` (`name` varchar(255),`age` int(11),`gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255))  BEGIN
+insert into users(Name,Age,Gender,Mobile,Temp,Diag,Encounter,Vax,Nationality) value(name,age,gender,mobile,temp,diag,encounter,vax,nationality);
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_read`$$
@@ -26,8 +26,8 @@ select * from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_update`$$
-CREATE  PROCEDURE `sp_update` (`name` varchar(255), `gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255), `vax` varchar(255),`nationality` varchar(255),`rid` int(5))  BEGIN
-update users set Name=name,Gender=gender,Mobile=mobile,Temp=temp,Diag=diag,Encounter=encounter,Vax=vax,Nationality=nationality where id=rid;
+CREATE  PROCEDURE `sp_update` (`name` varchar(255),`age` int(11),`gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255),`rid` int(5))  BEGIN
+update users set Name=name,Age=age,Gender=gender,Mobile=mobile,Temp=temp,Diag=diag,Encounter=encounter,Vax=vax,Nationality=nationality where id=rid;
 END$$
 
 DELIMITER ;
@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `Name` varchar(255) NOT NULL,
+  `Age` int(11) NOT NULL,
   `Gender` varchar(255) NOT NULL,
   `Mobile` varchar(255) NOT NULL,
   `Temp` varchar(255) NOT NULL,
@@ -45,6 +46,12 @@ CREATE TABLE `users` (
   `Nationality` varchar(255) NOT NULL,
   `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `users` (`id`, `Name`, `Age`, `Gender`, `Mobile`, `Temp`, `Diag`, `Encounter`, `Vax`, `Nationality`, `Created_at`) VALUES
+(1, 'Peter Parker', '16', 'male', '111', '36.7', 'no', 'yes', 'no', 'filipino', '2022-08-26 09:00:00'),
+(2, 'Bruce Wayne', '26', 'male', '222', '37', 'yes', 'no', 'yes', 'american', '2022-08-26 09:00:00'),
+(3, 'Lois Lane', '22', 'female', '333', '37.1', 'no', 'yes', 'yes', 'filipino', '2022-08-26 09:00:00');
 
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);

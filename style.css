@@ -30,3 +30,27 @@ html {
   margin-bottom: 10px;
 
 }
+
+.card-1 {
+  background-color: #5B9BD5;
+}
+
+.card-2 {
+  background-color: #ED7D31;
+}
+
+.card-3 {
+  background-color: #FFC000;
+}
+
+.card-4 {
+  background-color: #70AD47;
+}
+
+.card-5 {
+  background-color: #F7A988;
+}
+
+.card-6 {
+  background-color: #999999;
+}
