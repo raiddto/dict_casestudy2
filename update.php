@@ -57,7 +57,7 @@
 						?>
 					<h2 class="text-center mb-5">Update <?php echo ucwords($result['Name']); ?></h2>
 					<div class="my-3">
-						<form name="insertrecord" method="post" action="index.php">
+						<form name="insertrecord" method="post" >
 							<div class="form-group">
 								<label for="name">Name</label>
 								<input type="text" class="form-control" placeholder="Name" name="name" value="<?php echo ucwords($result['Name']); ?>" required>
