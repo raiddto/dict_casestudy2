@@ -5,22 +5,22 @@
 	// Add
 	if(isset($_POST['add']))
 	{
-		// Posted Values  
-		$fname=$_POST['firstname'];
-		$lname=$_POST['lastname'];
-		$age=$_POST['age'];
-		$school=$_POST['school'];
-		// Call the store procedure for insertion
-		$sql=mysqli_query($con,"call sp_insert('$fname','$lname','$age','$school')");
+		$name=$_POST['name'];
+		$gender=$_POST['gender'];
+		$mobile=$_POST['mobile'];
+		$temp=$_POST['temp'];
+		$diag=$_POST['diag'];
+		$encounter=$_POST['encounter'];
+		$vax=$_POST['vax'];
+		$nationality=$_POST['nationality'];
+		$sql=mysqli_query($con,"call sp_insert('$name','$gender','$mobile','$temp','$diag','$encounter','$vax','$nationality')");
 		if($sql)
 		{
-			// Message for successfull insertion
 			echo "<script>alert('Record inserted successfully');</script>";
 			echo "<script>window.location.href='index.php'</script>"; 
 		}
 		else
 		{
-			// Message for unsuccessfull insertion
 			echo "<script>alert('Something went wrong. Please try again');</script>";
 			echo "<script>window.location.href='index.php'</script>"; 
 		}
@@ -29,19 +29,16 @@
 	// Update
 	if(isset($_POST['update']))
 	{
-		// Get the row id
-		$rid=intval($_GET['id']);
-		// Posted Values  
-		$fname=$_POST['firstname'];
-		$lname=$_POST['lastname'];
-		$age=$_POST['age'];
-		$school=$_POST['school'];
-
-		// Store  Procedure for Updation
-		$sql=mysqli_query($con,"call sp_update('$fname','$lname','$age','$school','$rid')");
-		// Mesage after updation
+		$name=$_POST['name'];
+		$gender=$_POST['gender'];
+		$mobile=$_POST['mobile'];
+		$temp=$_POST['temp'];
+		$diag=$_POST['diag'];
+		$encounter=$_POST['encounter'];
+		$vax=$_POST['vax'];
+		$nationality=$_POST['nationality'];
+		$sql=mysqli_query($con,"call sp_update('$name','$gender','$mobile','$temp','$diag','$encounter','$vax','$nationality','$rid')");
 		echo "<script>alert('Record Updated successfully');</script>";
-		// Code for redirection
 		echo "<script>window.location.href='index.php'</script>"; 
 	}
 
@@ -65,13 +62,12 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 		<!-- favicon -->
-		<link rel="icon" type="image/png" sizes="192x192"  href="favicons/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="favicons/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
-		<link rel="manifest" href="favicons/manifest.json">
+		<link rel="icon" type="image/png" sizes="192x192"  href="images/favicons/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+		<link rel="manifest" href="images/favicons/manifest.json">
 		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="{{ asset('images/favicons/ms-icon-144x144.png') }}">
 		<meta name="theme-color" content="#ffffff">
 		<title>Case Study 2 - PEO</title>
 	</head>
@@ -92,29 +88,54 @@
 					<div>
 						<form name="add" method="POST">
 							<div class="form-group">
-								<label for="firstname">First Name</label>
-								<input type="text" class="form-control" placeholder="First Name" name="firstname">
+								<label for="name">Name</label>
+								<input type="text" class="form-control" placeholder="Name" name="name" required>
 							</div>
 							<div class="form-group">
-								<label for="lastname">Last Name</label>
-								<input type="text" class="form-control" placeholder="Last Name" name="lastname">
+								<label for="gender">Gender</label><br>
+								&nbsp;
+								<input type="radio" name="gender" value="male" checked="checked">
+								<label for="gender1">Male</label>&emsp;
+								<input type="radio" name="gender" value="female">
+								<label for="gender2">Female</label><br>
 							</div>
 							<div class="form-group">
-								<label for="age">Age</label>
-								<input type="number" class="form-control" placeholder="Age" name="age">
+								<label for="mobile">Mobile No.</label>
+								<input type="text" class="form-control" placeholder="Mobile Number" name="mobile" required>
 							</div>
 							<div class="form-group">
-								<label for="School">School</label>
-								<select class="form-control" name="school">
-									<option value="XU">XU</option>
-									<option value="LDCU">LDCU</option>
-									<option value="LC">LC</option>
-									<option value="MUST">MUST</option>
-									<option value="COC">COC</option>
-									<option value="CU">CU</option>
-								</select>
+								<label for="temp">Body Temp</label>
+								<input type="number" class="form-control" placeholder="Temperature" name="temp">
 							</div>
-							<button type="submit" class="btn btn-primary" name="add" value="Submit">Submit</button>
+							<div class="form-group">
+								<label for="diag">COVID-19 Diagnosed</label><br>
+								&nbsp;
+								<input type="radio" name="diag" value="yes">
+								<label for="diag1">Yes</label>&emsp;
+								<input type="radio" name="diag" value="no" checked="checked">
+								<label for="diag2">No</label><br>
+							</div>
+							<div class="form-group">
+								<label for="encounter">COVID-19 Encounter</label><br>
+								&nbsp;
+								<input type="radio" id="html" name="encounter" value="yes">
+								<label for="encounter1">Yes</label>&emsp;
+								<input type="radio" name="encounter" value="no" checked="checked">
+								<label for="encounter2">No</label><br>
+							</div>
+							<div class="form-group">
+								<label for="vax">Vacinated</label><br>
+								&nbsp;
+								<input type="radio" name="vax" value="yes">
+								<label for="vax1">Yes</label>&emsp;
+								<input type="radio" name="vax" value="no" checked="checked">
+								<label for="vax2">No</label><br>
+							</div>
+							<div class="form-group">
+								<label for="nationality">Nationality</label>
+								<input type="text" class="form-control" placeholder="Nationality" name="nationality" required>
+							</div>
+							<button type="submit" class="btn btn-primary" name="add" value="Submit"><i class="fa-solid fa-floppy-disk"></i> Save</button>
 						</form>
 					</div>
 				</div>
@@ -124,10 +145,14 @@
 					<table id="dTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-							<th scope="col">First</th>
-							<th scope="col">Last</th>
-							<th scope="col">Age</th>
-							<th scope="col">School</th>
+							<th scope="col">Name</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Mobile No.</th>
+							<th scope="col">Body Temp</th>
+							<th scope="col">COVID-19 Diagnosed</th>
+							<th scope="col">COVID-19 Encounter</th>
+							<th scope="col">Vacinated</th>
+							<th scope="col">Nationality</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -141,17 +166,20 @@
 							?>
 							<tr>
 							    <td><?php echo htmlentities($cnt);?></td>
-							    <td><?php echo htmlentities($result['FirstName']);?></td>
-							    <td><?php echo htmlentities($result['LastName']);?></td>
-							    <td><?php echo htmlentities($result['Age']);?></td>
-							    <td><?php echo htmlentities($result['School']);?></td>
+							    <td><?php echo ucwords(htmlentities($result['Name']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Gender']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Mobile']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Temp']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Diag']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Encounter']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Vax']));?></td>
+							    <td><?php echo ucwords(htmlentities($result['Nationality']));?></td>
 							 
 							    <td><a href="update.php?id=<?php echo htmlentities($result['id']);?>"><button class="btn btn-primary btn-xs"><i class="fa-solid fa-pen-to-square"></i></button></a></td>
 							 
 							    <td><a href="?del=<?php echo htmlentities($result['id']);?>"><button class="btn btn-danger btn-xs" onClick="return confirm('Do you really want to delete');"><i class="fa-solid fa-trash-can"></i></button></a></td>
 						    </tr>
 						    <?php 
-								// for serial number increment
 										$cnt++;
 									}
 								} else {
@@ -166,11 +194,12 @@
 				<hr>
 	        	<div id="graph">
 					<h2 class="text-center">Graph</h2>
-					<img src="graph.png">
+					<img src="images/graph.png">
 				</div>
 				<hr>
 	        	<div id="about">
 					<h2 class="text-center">About</h2>
+	            	<img src="images/peo.png" class="peo-logo img-fluid img-thumbnail">
 					<p class="text-center">PGMO-PEO</p>
 					<ul class="list-group">
 						<li class="list-group-item text-center"><a href="https://www.facebook.com/raiddto/"><i class="fa-brands fa-facebook"></i> Ryan Abcede</a></li>

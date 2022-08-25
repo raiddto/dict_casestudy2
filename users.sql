@@ -11,8 +11,8 @@ delete from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_insert`$$
-CREATE  PROCEDURE `sp_insert` (`fname` VARCHAR(120), `lname` VARCHAR(120), `gender` varchar(120),`age` int(11), `mobile` varchar(255),`temp` varchar(255),`school` VARCHAR(255), `diag` varchar(150),`encounter` varchar(150), `vax` varchar(150),`citizen` VARCHAR(255),`rid` INT(5))  BEGIN
-insert into users(FirstName,LastName,Gender,Age,Mobile,Temp,School,Diag,Encounter,Vax,Citizen) value(fname,lname,gender,age,mobile,temp,school,diag,encounter,vax,citizen);
+CREATE  PROCEDURE `sp_insert` (`name` varchar(255), `gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255), `vax` varchar(255),`nationality` varchar(255))  BEGIN
+insert into users(Name,Gender,Mobile,Temp,Diag,Encounter,Vax,Nationality) value(name,gender,mobile,temp,diag,encounter,vax,nationality);
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_read`$$
@@ -26,8 +26,8 @@ select * from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_update`$$
-CREATE  PROCEDURE `sp_update` (`fname` VARCHAR(120), `lname` VARCHAR(120), `gender` varchar(120),`age` int(11), `mobile` varchar(255),`temp` varchar(255),`school` VARCHAR(255), `diag` varchar(150),`encounter` varchar(150), `vax` varchar(150),`citizen` VARCHAR(255),`rid` INT(5))  BEGIN
-update users set FirstName=fname,LastName=lname,Gender=gender,Age=age,Mobile=mobile,Temp=temp,School=school,Diag=diag,Encounter=encounter,Vax=vax,Citizen=citizen where id=rid;
+CREATE  PROCEDURE `sp_update` (`name` varchar(255), `gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255), `vax` varchar(255),`nationality` varchar(255),`rid` int(5))  BEGIN
+update users set Name=name,Gender=gender,Mobile=mobile,Temp=temp,Diag=diag,Encounter=encounter,Vax=vax,Nationality=nationality where id=rid;
 END$$
 
 DELIMITER ;
@@ -35,18 +35,15 @@ DELIMITER ;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `FirstName` varchar(150) NOT NULL,
-  `LastName` varchar(150) NOT NULL,
-  `Gender` varchar(150) NOT NULL,
-  `Age` int(11) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Gender` varchar(255) NOT NULL,
   `Mobile` varchar(255) NOT NULL,
   `Temp` varchar(255) NOT NULL,
-  `School` varchar(255) NOT NULL,
-  `Diag` varchar(150) NOT NULL,
-  `Encounter` varchar(150) NOT NULL,
-  `Vax` varchar(150) NOT NULL,
-  `Citizen` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `Diag` varchar(255) NOT NULL,
+  `Encounter` varchar(255) NOT NULL,
+  `Vax` varchar(255) NOT NULL,
+  `Nationality` varchar(255) NOT NULL,
+  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `users`

@@ -20,3 +20,13 @@ html {
 #btn-up:hover {
   background-color: #555;
 }
+
+.peo-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  border: 0px;
+  margin-bottom: 10px;
+
+}
