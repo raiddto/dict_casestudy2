@@ -7,16 +7,15 @@
 	{
 		$rid=intval($_GET['id']);
 		$name=$_POST['name'];
-		$gender=$_POST['gender'];
 		$age=$_POST['age'];
+		$gender=$_POST['gender'];
 		$mobile=$_POST['mobile'];
 		$temp=$_POST['temp'];
 		$diag=$_POST['diag'];
 		$encounter=$_POST['encounter'];
 		$vax=$_POST['vax'];
 		$nationality=$_POST['nationality'];
-		$sql=mysqli_query($con,"call sp_update('$name','$gender','$age','$mobile','$temp','$diag','$encounter','$vax','$nationality','$rid')");
-		die(var_dump($sql));
+		$sql=mysqli_query($con,"call sp_update('$name','$age','$gender','$mobile','$temp','$diag','$encounter','$vax','$nationality','$rid')");
 		echo "<script>alert('Record Updated successfully');</script>";
 		echo "<script>window.location.href='index.php'</script>";
 	}
@@ -151,7 +150,7 @@
 								<input type="text" class="form-control" placeholder="Nationality" name="nationality" value="<?php echo ucwords($result['Nationality']); ?>" required>
 							</div>
 							<?php } ?>
-							<input type="submit" class="btn btn-primary" name="update" value="Update">
+							<button type="submit" class="btn btn-primary" name="update" value="Submit"><i class="fa-solid fa-floppy-disk"></i> Update</button>
 						</form>
 					</div>
 				</div>
