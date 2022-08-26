@@ -11,8 +11,8 @@ delete from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_insert`$$
-CREATE  PROCEDURE `sp_insert` (`name` varchar(255),`age` int(11),`gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255))  BEGIN
-insert into users(Name,Age,Gender,Mobile,Temp,Diag,Encounter,Vax,Nationality) value(name,age,gender,mobile,temp,diag,encounter,vax,nationality);
+CREATE  PROCEDURE `sp_insert` (`name` varchar(255),`gender` varchar(255),`age` int(11),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255))  BEGIN
+insert into users(Name,Gender,Age,Mobile,Temp,Diag,Encounter,Vax,Nationality) value(name,gender,age,mobile,temp,diag,encounter,vax,nationality);
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_read`$$
@@ -26,8 +26,8 @@ select * from users where id=rid;
 END$$
 
 DROP PROCEDURE IF EXISTS `sp_update`$$
-CREATE  PROCEDURE `sp_update` (`name` varchar(255),`age` int(11),`gender` varchar(255),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255),`rid` int(5))  BEGIN
-update users set Name=name,Age=age,Gender=gender,Mobile=mobile,Temp=temp,Diag=diag,Encounter=encounter,Vax=vax,Nationality=nationality where id=rid;
+CREATE  PROCEDURE `sp_update` (`name` varchar(255),`gender` varchar(255),`age` int(11),`mobile` varchar(255),`temp` varchar(255), `diag` varchar(255),`encounter` varchar(255),`vax` varchar(255),`nationality` varchar(255),`rid` int(5))  BEGIN
+update users set Name=name,Gender=gender,Age=age,Mobile=mobile,Temp=temp,Diag=diag,Encounter=encounter,Vax=vax,Nationality=nationality where id=rid;
 END$$
 
 DELIMITER ;
@@ -36,8 +36,8 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `Name` varchar(255) NOT NULL,
-  `Age` int(11) NOT NULL,
   `Gender` varchar(255) NOT NULL,
+  `Age` int(11) NOT NULL,
   `Mobile` varchar(255) NOT NULL,
   `Temp` varchar(255) NOT NULL,
   `Diag` varchar(255) NOT NULL,
